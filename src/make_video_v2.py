@@ -317,7 +317,7 @@ def title_card(lt, gt):
     return img
 
 
-def end_card():
+def end_card(subtitle="« Ce n'est pas mon écriture »"):
     img = Image.new("RGB", (W, H), (8, 10, 28))
     d = ImageDraw.Draw(img)
 
@@ -326,8 +326,8 @@ def end_card():
         d.text((W / 2 - tw / 2, y), txt, font=f, fill=col)
 
     center("LES GUIGNOLS — LE COME-BACK", 170, font(FONT_BLACK, 72), (255, 255, 255))
-    center("« Ce n'est pas mon écriture »", 270, font(FONT_BOLD, 46), (255, 210, 60))
-    txt = ("PARODIE. Marionnettes caricaturales, voix d'imitation et répliques entièrement inventées. "
+    center(subtitle, 270, font(FONT_BOLD, 46), (255, 210, 60))
+    txt = ("PARODIE. Marionnettes caricaturales, voix de synthèse et répliques entièrement inventées. "
            "Mediapart affirme avoir authentifié des messages de 2013 attribués à Jordan Bardella ; "
            "celui-ci conteste en être l'auteur et a annoncé une plainte pour faux et diffamation.")
     y = 420

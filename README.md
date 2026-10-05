@@ -3,7 +3,44 @@
 Faire revivre l'esprit des *Guignols de l'info* (Canal+, 1988-2018) avec des
 marionnettes générées par programme et des personnalités politiques d'aujourd'hui.
 
-## Version actuelle : épisode 1 v2, « Ce n'est pas mon écriture » (~55 s)
+## Version actuelle : épisode 1 v3, « C'est fou ce que les gens se ressemblent » (~57 s)
+
+- `output/guignols_comeback_ep1_v3.mp4`, en 4:3 (1440x1080)
+- `output/guignols_comeback_ep1_v3_vertical.mp4`, en 9:16 pour les réseaux
+
+Ce qui change par rapport à la v2 (retours de Noa : voix robotiques, mâchoire
+irregardable, sketch sans rythme, présentateur inconnu) :
+
+- **La synchro labiale par variantes.** Pour chaque plan, des variantes de la
+  même image ont été générées (bouche entrouverte, grande ouverte, en « O »,
+  yeux fermés). À chaque image vidéo, on colle la bonne forme de bouche :
+  l'ouverture est choisie d'après le volume de la voix, la voyelle arrondie
+  d'après les formants. S'y ajoutent des clignements d'yeux aléatoires.
+  Voir `src/make_video_v3.py`.
+- **Des voix neuronales XTTS-v2** (`src/voices_xtts.py`). Elles partent de voix
+  de lecteurs anonymes LibriVox (domaine public), choisies pour leur timbre,
+  sans clonage d'une personnalité. Pour chaque réplique, plusieurs prises sont
+  générées et la meilleure est gardée automatiquement : Whisper vérifie le
+  texte et les mots-clés, UTMOS note le naturel. Les pauses sont raccourcies
+  pour le rythme ping-pong.
+- **Le présentateur est Pascal Praud**, en marionnette complaisante qui
+  répète tout ce que dit Bardella, inspiré de PPD face à Balladur. Le sketch
+  joue sur le déni, l'escalade de la sonnerie, la diversion (« on passe à un
+  sujet grave : l'insécurité ! ») et la chute en rappel, avec applaudissements.
+- **Les légendes ironiques** façon Guignols : « PASCAL PRAUD — JOURNALISTE
+  IMPARTIAL », etc.
+
+```sh
+pip install coqui-tts[codec] "transformers>=4.57,<5" faster-whisper praat-parselmouth librosa opencv-python-headless
+git clone https://github.com/tarepan/SpeechMOS /tmp/SpeechMOS   # note de naturel UTMOS
+COQUI_TOS_AGREED=1 python3 src/gen_voices_v3.py   # voix (long sur CPU)
+python3 src/make_video_v3.py && ./src/make_vertical.sh output/guignols_comeback_ep1_v3.mp4 output/guignols_comeback_ep1_v3_vertical.mp4
+```
+
+Licence : le modèle XTTS-v2 est sous Coqui Public Model License, réservée à
+un usage non commercial.
+
+## Épisode 1 v2 (remplacée), « Ce n'est pas mon écriture » (~55 s)
 
 - `output/guignols_comeback_ep1_v2.mp4`, en 4:3 (1440x1080), comme à l'époque
 - `output/guignols_comeback_ep1_v2_vertical.mp4`, en 9:16 pour les réseaux

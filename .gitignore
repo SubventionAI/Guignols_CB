@@ -8,3 +8,9 @@ research/*.log
 research/ref/
 research/transcribe.py
 voices/
+research/refvoices/*
+!research/refvoices/clips/
+research/refvoices/clips/*
+!research/refvoices/clips/praud_p3_long.wav
+!research/refvoices/clips/bard_a_long.wav
+!research/refvoices/clips/marine_a_long.wav
