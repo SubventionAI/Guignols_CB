@@ -3,7 +3,35 @@
 Faire revivre l'esprit des *Guignols de l'info* (Canal+, 1988-2018) avec des
 marionnettes générées par programme et des personnalités politiques d'aujourd'hui.
 
-**Épisode 1 : « Mais qui a bien pu écrire ça ? »** (~42 s)
+## Version actuelle : épisode 1 v2, « Ce n'est pas mon écriture » (~55 s)
+
+- `output/guignols_comeback_ep1_v2.mp4`, en 4:3 (1440x1080), comme à l'époque
+- `output/guignols_comeback_ep1_v2_vertical.mp4`, en 9:16 pour les réseaux
+
+Cette version a été refaite après avoir **visionné de vrais sketchs** de 1995
+(analyse dans `research/NOTES.md`). Elle comprend :
+
+- **les marionnettes en latex**, générées en images (Canva) dans le décor du JT
+  des Guignols, puis animées : mâchoire articulée synchronisée sur la voix,
+  dodelinement de la tête, sac qui vibre ;
+- **les voix d'imitation caricaturées**, sans clonage : une voix de synthèse
+  Piper déformée avec Praat et sox (`src/voices.py`) ;
+- **un scénario construit sur le déni en boucle** du sketch Balladur / PPD,
+  avec le gag du téléphone qui sonne dans le sac de Marine, les
+  applaudissements et le « Voilà. Sans transition… ».
+
+```sh
+pip install piper-tts praat-parselmouth pillow numpy
+# voix Piper (voices/) : fr_FR-tom-medium, fr_FR-siwis-medium, fr_FR-upmc-medium
+#   https://huggingface.co/rhasspy/piper-voices/tree/main/fr/fr_FR
+python3 src/make_video_v2.py && ./src/make_vertical.sh
+```
+
+## Première version (v1, abandonnée)
+
+**Épisode 1 : « Mais qui a bien pu écrire ça ? »** (~42 s), avec des
+marionnettes dessinées par le code et des voix robotiques. Elle a été jugée
+trop éloignée du rendu des Guignols.
 
 - `output/guignols_comeback_ep1.mp4`, en 16:9 (1280x720)
 - `output/guignols_comeback_ep1_vertical.mp4`, en 9:16 pour Shorts, TikTok et Reels

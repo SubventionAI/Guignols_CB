@@ -1,2 +1,10 @@
 build/
 __pycache__/
+research/*.mp4
+research/*.wav
+research/*.txt
+research/*.png
+research/*.log
+research/ref/
+research/transcribe.py
+voices/
