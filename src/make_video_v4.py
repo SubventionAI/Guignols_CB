@@ -130,12 +130,15 @@ def soft_look(img):
     return Image.fromarray(np.clip(a, 0, 255).astype(np.uint8))
 
 
-def render(preview=False):
+def render(preview=False, upto=None):
     timeline, total = build_timeline()
+    if upto is not None:
+        timeline = timeline[:upto]
+        total = timeline[-1]["t0"] + timeline[-1]["dur"]
     wav = os.path.join(BUILD, "mix.wav")
     mix_audio(timeline, total, wav)
     end = end_card("« C'est fou ce que les gens se ressemblent »")
-    out = os.path.join(OUT, "guignols_comeback_ep1_v4.mp4")
+    out = os.path.join(OUT, "guignols_comeback_ep1_v4.mp4" if upto is None else "guignols_comeback_ep1_v4_apercu.mp4")
     ff = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24",
                            "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-", "-i", wav,
                            "-c:v", "libx264", "-preset", "medium", "-crf", "20", "-pix_fmt", "yuv420p",
@@ -206,4 +209,5 @@ if __name__ == "__main__":
     if sys.argv[1] == "prepare":
         prepare()
     else:
-        render("--preview" in sys.argv)
+        upto = next((int(a.split("=")[1]) for a in sys.argv if a.startswith("--upto=")), None)
+        render("--preview" in sys.argv, upto)
