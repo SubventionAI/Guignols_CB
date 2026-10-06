@@ -3,7 +3,36 @@
 Faire revivre l'esprit des *Guignols de l'info* (Canal+, 1988-2018) avec des
 marionnettes générées par programme et des personnalités politiques d'aujourd'hui.
 
-## Version actuelle : épisode 1 v3, « C'est fou ce que les gens se ressemblent » (~57 s)
+## Version actuelle : épisode 1 v4, nouveau style 3D animé par IA
+
+- `output/guignols_comeback_ep1_v4.mp4` en 4:3, et `output/guignols_comeback_ep1_v4_vertical.mp4`
+
+Ce qui change par rapport à la v3 (retours de Noa : bouches bizarres, tout le
+reste immobile, rendu pas beau, trop collé aux marionnettes en latex) :
+
+- **Une nouvelle direction artistique**, « Guignols nouvelle génération » :
+  personnages 3D caricaturaux lisses (style film d'animation), têtes
+  surdimensionnées, plateau de JT moderne avec vue sur Paris. Le style est
+  volontairement cartoon, pour qu'on ne puisse pas le confondre avec un
+  deepfake. Images dans `assets/v4/`.
+- **Une animation faciale par IA (SadTalker)** : à partir de la voix, le
+  modèle anime tout le visage (lèvres, mâchoire, joues, sourcils, mouvements
+  de tête, clignements), y compris quand le personnage écoute en silence.
+  `src/sadtalker_batch.py` enchaîne tous les plans en ne chargeant les
+  modèles qu'une fois.
+- **La netteté « dessin animé »** : le visage animé est repassé dans
+  Real-ESRGAN (modèle anime) pour garder des contours nets
+  (`src/enhance_faces.py`).
+- **Le même sketch et les mêmes voix** que la v3.
+
+```sh
+python3 src/make_video_v4.py prepare            # minutage + pistes audio + jobs.json
+cd /home/user/SadTalker && /home/user/st-venv/bin/python <repo>/src/sadtalker_batch.py <repo>/build/v4/anim/jobs.json
+/home/user/st-venv/bin/python src/enhance_faces.py build/v4/anim
+python3 src/make_video_v4.py render
+```
+
+## Épisode 1 v3 (remplacée), « C'est fou ce que les gens se ressemblent » (~57 s)
 
 - `output/guignols_comeback_ep1_v3.mp4`, en 4:3 (1440x1080)
 - `output/guignols_comeback_ep1_v3_vertical.mp4`, en 9:16 pour les réseaux
